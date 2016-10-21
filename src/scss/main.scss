@@ -77,6 +77,16 @@ a:visited{color: $black}
   z-index:0;
  }
 
+#darken-overlay{
+  height: 100%;
+  width: 100%;
+  position:fixed !important;
+  pointer-events:none;
+  top:0;
+  left:0;
+  z-index:1;
+}
+
  #gradient-overlay{
    height: 80px;
    width: 100%;
