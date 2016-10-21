@@ -68,7 +68,7 @@ a:visited{color: $black}
 //COMPONENTS
 //----------------------------------------------------------------------------
 
-#map {
+#mapid {
   height: 100%;
   width: 100%;
   position:fixed !important;
@@ -93,6 +93,7 @@ a:visited{color: $black}
    z-index:2;
    position:relative;
    margin: 10px;
+   -webkit-overflow-scrolling: touch;
  }
 
  #map-date{

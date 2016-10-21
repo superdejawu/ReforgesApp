@@ -4,6 +4,7 @@
     <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
     <link href="https://fonts.googleapis.com/css?family=Sintony:400,700" rel="stylesheet" type='text/css'>
     <link rel="stylesheet" href="dist/css/main.css">
+    <link rel="stylesheet" href="dist/css/leaflet.css">
   </head>
   <body>
     <div id="sidebar">
@@ -66,30 +67,41 @@
     </div>
 
     <div id="gradient-overlay"></div>
-    <div id="map">
+    <div id="mapid">
     </div>
 
     <script src="dist/js/app.min.js"></script>
+    <!-- <script src="https://unpkg.com/leaflet@1.0.1/dist/leaflet.js"></script> -->
     <script>
+      var map = L.map('mapid', {
+        zoomControl:false
+      }).setView([51.505, -0.09], 13);
 
-    function initMap() {
-      var reforges = {lat: 43.755, lng: -79.538};
-      var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 16,
-        center: reforges,
-        mapTypeId: google.maps.MapTypeId.HYBRID,
-        disableDefaultUI: true,
-        zoomControl:true,
-        // scaleControl:true
-      });
-      // var marker = new google.maps.Marker({
-      //   position: reforges,
-      //   map: map
-      // });
-    }
+    	L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpandmbXliNDBjZWd2M2x6bDk3c2ZtOTkifQ._QA7i5Mpkd_m30IGElHziw', {
+    		maxZoom: 18,
+    		attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+    			'<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+    			'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+    		id: 'mapbox.streets'
+    	}).addTo(map);
+
+
+      L.control.zoom({
+       position:'bottomright'
+     }).addTo(map);
+
+     var alertIcon = L.icon({
+      iconUrl: './dist/images/alert-marker@2x.png',
+
+      iconSize:     [40, 41], // size of the icon
+      // shadowSize:   [50, 64], // size of the shadow
+      // iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+      // shadowAnchor: [4, 62],  // the same for the shadow
+      // popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+    });
+     var marker = L.marker([51.5, -0.09], {icon:alertIcon}).addTo(map);
+     var marker = L.marker([51.518, -0.08], {icon:alertIcon}).addTo(map);
+
     </script>
-    <script async defer
-  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBgB9d0qxCOB-2KlUZnfBaRAVrSNdRpcZk&callback=initMap">
-  </script>
   </body>
 </html>
