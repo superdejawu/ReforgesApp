@@ -1,36 +1,52 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Sintony:400,700" rel="stylesheet" type='text/css'>
     <link rel="stylesheet" href="dist/css/main.css">
   </head>
   <body>
     <div id="sidebar">
       <header>
-        <nav><button>Home</button></nav>
-        <h1>Site Title</h1>
+        <nav><a href="#"><img src="./dist/images/home.png" style="display:block"></a></nav>
+        <div class="nav-divider"></div>
+        <h1>Solar Array A</h1>
       </header>
 
-      <section id="alerts-panel">
-        <header>
+      <section id="alerts-panel" class="panel">
+        <header class="panel-header panel-header-alerts">
             <h2>Alerts</h2>
-              <h2>#<h2><img src="http://placehold.it/14x14"></img>
-            <button>New Alert</button>
+            <!-- <img src="./dist/images/alert-icon.png"></img> -->
+            <a href="#"><img src="./dist/images/add-alert.png" style="display:block"></img></a>
         </header>
-        <div> <a>
+        <a href="#">  <div class="alert">
           <img src="http://placehold.it/74x60"></img>
-          Alert 1 Description <small> Name <time>datetime</time></small>
-        </a></div>
-        <div> <a>
-          <img src="http://placehold.it/74x60"></img>
-          Alert 2 Description <small> Name <time>datetime</time></small>
-        </a></div>
+          <div class="alert-description">
+            Need to check if these panels are back online. <small> Ella <time>July 5 10:00am</time></small>
+          </div>
+        </div></a>
+        <a href="#">  <div class="alert">
+          <img src="http://placehold.it/74x60" ></img>
+          <div class="alert-description">
+            Debris on the panel, send someone to clean it up. <small> Ella <time>July 5 9:32am</time></small>
+          </div>
+        </div></a>
       </section>
 
-      <section id="flights-panel">
-        <header>
+      <section id="flights-panel" class="panel">
+        <header class="panel-header">
           <h2>Flights</h2>
-          <button>New Flight</button>
+          <a href="#"><img src="./dist/images/add.png" style="display:block"></img></a>
         </header>
+        <div class="flight">
+          <div class="flight-description">
+            <h3>Daily Survey</h3> Next: Today, 9:00am
+          </div>
+          <div class="divider"></div>
+          <div class="fly-now-button">
+              <h3>Fly Now</h3>
+          </div>
+        </div>
 
       </section>
     </div>
@@ -49,6 +65,7 @@
       <button>History</button>
     </div>
 
+    <div id="gradient-overlay"></div>
     <div id="map">
     </div>
 
@@ -56,15 +73,19 @@
     <script>
 
     function initMap() {
-      var uluru = {lat: -25.363, lng: 131.044};
+      var reforges = {lat: 43.755, lng: -79.538};
       var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 4,
-        center: uluru
+        zoom: 16,
+        center: reforges,
+        mapTypeId: google.maps.MapTypeId.HYBRID,
+        disableDefaultUI: true,
+        zoomControl:true,
+        // scaleControl:true
       });
-      var marker = new google.maps.Marker({
-        position: uluru,
-        map: map
-      });
+      // var marker = new google.maps.Marker({
+      //   position: reforges,
+      //   map: map
+      // });
     }
     </script>
     <script async defer
