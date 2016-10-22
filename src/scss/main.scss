@@ -85,6 +85,9 @@ a:visited{color: $black}
   top:0;
   left:0;
   z-index:1;
+  background-color: rgba(0, 13, 115, 0.36);
+  transition: opacity 0.2s;
+
 }
 
  #gradient-overlay{

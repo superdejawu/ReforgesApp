@@ -1,12 +1,53 @@
-$(".fly-now-button").click(function(event) {
+var darkenOverlay = document.getElementById('darken-overlay');
+
+$('.fly-now-button').click(function(event) {
     event.preventDefault();
+    map.closePopup();
+
     if(map.hasLayer(droneRangesLayer)) {
+      map.removeLayer(droneRangesLayer);
+    }
+    if(map.hasLayer(flightPathLayer)) {
         // $(this).removeClass('selected');
-        map.removeLayer(droneRangesLayer);
+        // map.removeLayer(droneRangesLayer);
+        map.removeLayer(flightPathLayer);
+
+        darkenOverlay.style.opacity = '0';
+        $('.fly-now-button-text').text("Fly Now");
+        $('.fly-now-button-text').css('color', waterBlue);
+
+        this.style.backgroundColor ='white';
+
     } else {
-        map.addLayer(droneRangesLayer);
+        // map.addLayer(droneRangesLayer);
+
+        map.addLayer(flightPathLayer);
+        map.fitBounds(flightPath.getBounds());
+
+
+        darkenOverlay.style.opacity = '1';
+        $('.fly-now-button-text').text("Confirm");
+        $('.fly-now-button-text').css('color','white');
+        this.style.backgroundColor=waterBlue;
+
+
         // $(this).addClass('selected');
    }
+});
+
+$('#alert1').click(function(e){
+  map
+     .setView(alerts[0],15,{animate:true});
+      alertMarkers[0].openPopup();
+
+});
+
+$('#alert2').click(function(e){
+  map
+     .setView(alerts[1],15,{animate:true});
+     alertMarkers[1].openPopup();
+
+
 });
 
 
@@ -21,8 +62,8 @@ var sky = '#89d8f9';
 
 var map = L.map('mapid', {
   zoomControl:false,
-  center: [51.505, -0.09],
-  zoom: 13,
+  center: [44.175,-79.48],
+  zoom: 14,
   layers: droneRangesLayer
   })
 
@@ -32,7 +73,7 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=p
   attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
     '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
     'Imagery © <a href="http://mapbox.com">Mapbox</a>',
-  id: 'mapbox.streets'
+    id: 'mapbox.streets'
 }).addTo(map);
 
 
@@ -71,16 +112,16 @@ iconAnchor:   [15, 17], // point of the icon which will correspond to marker's l
 //Marker Creation
 //--------------------------------------------------------------
 var alerts = [
-  [51.5,-0.07],
-  [51.518, -0.06]
+  [44.180,-79.480],
+  [44.170,-79.485]
 ];
 
 var docks = [
-    [51.52, -0.09]
+    [44.1682151,-79.4655632]
 ];
 
 var drones = [
-    [51.52, -0.09]
+    [44.1682151,-79.4655632]
 ];
 
 var alertMarkers=[];
@@ -95,9 +136,10 @@ drones.forEach(function(drone, index){
   droneMarkers.push(L.marker(drone, {icon:droneIcon}).addTo(map));
 });
 
-
-alerts.forEach(function(alert, index){
+var alertPopupContent=["This is an alert!","And this is another one!"];
+  alerts.forEach(function(alert, index){
   alertMarkers.push(L.marker(alert, {icon:alertIcon}).addTo(map));
+  alertMarkers[index].bindPopup(alertPopupContent[index]);
 });
 
 
@@ -105,14 +147,29 @@ alerts.forEach(function(alert, index){
 //--------------------------------------------------------------
 
 
-var droneRange = L.circle([51.52, -0.09], {
+var droneRange = L.circle([44.1682151,-79.4655632], {
   color: waterBlue,
   fillColor: sky,
   fillOpacity: 0.4,
-  radius: 1000
+  radius: 2000
 });
 
+var latlngs = [
+    [44.1682151,-79.4655632],
+    [44.180,-79.480],
+    [44.170,-79.485],
+    [44.1682151,-79.4655632],
+
+];
+var flightPath =  L.polyline(latlngs, {color: sky});
+
+
+// zoom the map to the polyline
+// map.fitBounds(polyline.getBounds());
+
 var droneRangesLayer = L.layerGroup([droneRange]);
+
+var flightPathLayer = L.layerGroup([flightPath])
 
 
 
@@ -130,22 +187,51 @@ droneMarkers.forEach(function(marker,index){
 alertMarkers.forEach(function(marker,index){
   marker.on('click', onAlertMarkerClick);
 });
+
+map.on('click', onMapClick);
 //
 function onDockMarkerClick(e){
   onMarkerClick(e);
 }
 
 function onDroneMarkerClick(e){
-  onMarkerClick(e);
-  droneRangesLayer.addTo(map);
+  // onMarkerClick(e);
+  if(map.hasLayer(droneRangesLayer)) {
+    map.removeLayer(droneRangesLayer);
+  }
+  else{
+    droneRangesLayer.addTo(map);
+
+  }
 }
 
 function onAlertMarkerClick(e){
   onMarkerClick(e);
+  if(map.hasLayer(droneRangesLayer)) {
+    map.removeLayer(droneRangesLayer);
+  }
 }
 
 
 function onMarkerClick(e) {
  map
-    .setView(e.latlng,14,{animate:true});
+    .setView(e.latlng,15,{animate:true});
   }
+
+function onMapClick(e){
+  if(map.hasLayer(droneRangesLayer)) {
+    map.removeLayer(droneRangesLayer);
+  }
+  if(map.hasLayer(flightPathLayer)) {
+    map.removeLayer(flightPathLayer);
+  }
+  map.setZoom(14);
+  darkenOverlay.style.opacity = '0';
+
+  $('.fly-now-button-text').text("Fly Now");
+  $('.fly-now-button-text').css('color', waterBlue);
+
+  $('.fly-now-button').css('background-color','white');
+
+
+}
