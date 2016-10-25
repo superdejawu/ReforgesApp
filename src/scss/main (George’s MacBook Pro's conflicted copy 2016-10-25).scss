@@ -1,0 +1,204 @@
+//VARIABLES
+//----------------------------------------------------------------------------
+//Fonts
+$header-font-family: 'Lato', sans-serif;
+$base-font-family: 'Sintony', sans-serif;
+$base-font-size: 14px;
+
+$base-font-weight:400;
+$thin-font-weight:200;
+$bold-font-weight:700;
+$monospace-font-family: monospace;
+
+//Affordances
+$inner-padding: 17px;
+$border-radius: 6px;
+
+//Colours
+$grapefruit: #ff5b5b;
+$water-blue: #0a9ac7;
+$sky: #89d8f9;
+$light-gray: #f3f3f3;
+$black:#343636;
+
+//DOCUMENT SETTINGS
+//----------------------------------------------------------------------------
+
+:root{
+  font-family: $base-font-family;
+  font-size: $base-font-size;
+  color: $black;
+  -webkit-font-smoothing: subpixel-antialiased;
+
+}
+
+//TEXT
+//----------------------------------------------------------------------------
+
+h1,h2,h3 {
+  font-family: $header-font-family;
+}
+h1 {
+  font-weight:$bold-font-weight;
+  letter-spacing: .2rem;
+  color:white;
+  font-size:1.6rem;
+}
+h2{
+  font-size: 0.9rem;
+  letter-spacing: .05rem;
+  font-weight:$thin-font-weight;
+  text-transform: uppercase;
+}
+h3{
+  color:$water-blue;
+  font-size: 0.85rem;
+  letter-spacing: .05rem;
+  font-weight:$thin-font-weight;
+  text-transform: uppercase;
+  margin:0;
+}
+
+small{
+  color:$water-blue;
+}
+
+a{text-decoration:none}
+a:visited{color: $black}
+
+//COMPONENTS
+//----------------------------------------------------------------------------
+
+#mapid {
+  height: 100%;
+  width: 100%;
+  position:fixed !important;
+  top:0;
+  left:0;
+  z-index:0;
+ }
+
+#darken-overlay{
+  height: 100%;
+  width: 100%;
+  position:fixed !important;
+  pointer-events:none;
+  top:0;
+  left:0;
+  z-index:1;
+  background-color: rgba(0, 13, 115, 0.36);
+  transition: opacity 0.2s;
+
+}
+
+ #gradient-overlay{
+   height: 80px;
+   width: 100%;
+   position:fixed !important;
+   pointer-events:none;
+   top:0;
+   left:0;
+   z-index:1;
+   background-image: linear-gradient(to top, rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.5) 99%);
+}
+
+ #sidebar {
+   width: 300px;
+   z-index:2;
+   position:relative;
+   margin: 10px;
+   -webkit-overflow-scrolling: touch;
+ }
+
+ #map-date{
+   z-index:2;
+ }
+
+ #view-options{
+   z-index:2;
+ }
+
+//Panel stuff
+//----------------------------------------------------------------------------
+.panel {
+  background-color: white;
+  width: 300px;
+  border-radius:$border-radius;
+  margin: 15px 0px;
+  box-shadow: 0 5px 9px 0 rgba(0, 0, 0, 0.2);
+}
+
+header{
+  display:flex;
+  align-items:center;
+
+}
+.panel-header{
+  display:flex;
+  justify-content: space-between;
+  background-color: $light-gray;
+  padding:12px 17px;
+  border-radius: $border-radius $border-radius 0 0;
+}
+.panel-header > h2{
+  margin:0 !important;
+}
+
+.panel-header-alerts{
+  background-color: $grapefruit;
+  color:white;
+}
+
+.nav-divider{
+    height:22px;
+    border-left:2px solid $sky;
+    margin: 0px 15px;
+}
+
+//LIST ITEMS
+//----------------------------------------------------------------------------
+
+.divider{
+    border-left:1px solid $water-blue;
+    margin: 0px 15px;
+}
+//Alert Stuff
+//----------------------------------------------------------------------------
+
+.alert{
+  display:flex;
+  padding:$inner-padding;
+  border-bottom: 1px solid $light-gray;
+}
+
+.alert-description{
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  padding-left: $inner-padding;
+}
+
+//Flight Stuff
+//----------------------------------------------------------------------------
+.flight{
+  display:flex;
+  justify-content:space-between;
+  padding:$inner-padding;
+  border-bottom: 1px solid $light-gray;
+}
+
+.flight-description{
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
+
+.fly-now-button{
+  display:flex;
+  flex-direction:column;
+  justify-content: center;
+  border: 1px solid $water-blue;
+  border-radius: 6px;
+  padding: 10px;
+
+}
